@@ -26,7 +26,7 @@ namespace Frontend1
         {
             services.AddMvc();
             // "http://localhost:64488/api/Books/"
-            services.AddSingleton<IBookService>(new HttpRestBooksService(Configuration[""]));
+            services.AddSingleton<IBookService>(new HttpRestBooksService(Configuration["Bookservice:url"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: frontend1
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: frontend1
+        microservice-type: api
+    spec:
+      containers:
+      - name: frontend1
+        image: gcr.io/hafslund-istio-test/github-sheitm-istio-test-frontend1:1.0.0
+        imagePullPolicy: Always
+        env:
+          - name: Bookservice__url
+            value: http://bookservice/api/Books/
