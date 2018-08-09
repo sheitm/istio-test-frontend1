@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Frontend1.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Frontend1
 {
@@ -26,7 +21,20 @@ namespace Frontend1
         {
             services.AddMvc();
             // "http://localhost:64488/api/Books/"
-            services.AddSingleton<IBookService>(new HttpRestBooksService(Configuration["Bookservice:url"]));
+
+            var url = Configuration["Bookservice:url"];
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                Console.WriteLine("Service url is null");
+                url = Environment.GetEnvironmentVariable("Bookservice__url");
+                if (string.IsNullOrWhiteSpace(url))
+                {
+                    Console.WriteLine("Service url is still null");
+                    url = "http://bookservice/api/Books/";
+                }
+            }
+
+            services.AddSingleton<IBookService>(new HttpRestBooksService(url));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

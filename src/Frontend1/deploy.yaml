@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: frontend1
-        image: gcr.io/hafslund-istio-test/github-sheitm-istio-test-frontend1:1.0.0
+        image: gcr.io/hafslund-istio-test/github-sheitm-istio-test-frontend1:1.0.2
         imagePullPolicy: Always
         env:
           - name: Bookservice__url
